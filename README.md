@@ -3,8 +3,8 @@
 Centralized storing and running our [Detekt](https://github.com/detekt/detekt) workflow, this is also where we are
 centralizing our configuration of Detekt
 
-
 ### How to use
+
 Add this step to your `pull_request.yml` inside of your github workflows with the following block
 
 ```yaml
