@@ -9,9 +9,17 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Download Detekt Configuration
+    - name: Determine Project Type
+      id: project_type
       run: |
         project_type="${{ inputs.project-type }}"
+        echo "project_type = $project_type"
+        echo "::set-output name=project_type::$project_type"
+      shell: bash
+      continue-on-error: true
+    - name: Download Detekt Configuration
+      run: |
+        project_type="${{ steps.project_type.outputs.project_type }}"
         echo "project type = $project_type"
         if [ "$project_type" == "ktor" ]; then
           echo 'Downloading ktor configuration'
