@@ -13,17 +13,14 @@ runs:
       id: project_type
       run: |
         project_type="${{ inputs.project-type }}"
-        echo "project_type = $project_type"
-        echo "::set-output name=project_type::$project_type"
       shell: bash
       continue-on-error: true
     - name: Download Detekt Configuration
       run: |
         project_type="${{ env.PROJECT_TYPE }}"
-        echo "project type = $project_type"
         if [ "$project_type" == "ktor" ]; then
           echo 'Downloading ktor configuration'
-          curl -L -o ktor-detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/ktor-detekt.yml
+          curl -L -o ktor-detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/feature/ktor_support/conf/ktor-detekt.yml
         else
           echo 'Downloading micronaut configuration'
           curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
