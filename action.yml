@@ -19,7 +19,7 @@ runs:
       continue-on-error: true
     - name: Download Detekt Configuration
       run: |
-        project_type="${{ steps.project_type.outputs.project_type }}"
+        project_type="${{ env.PROJECT_TYPE }}"
         echo "project type = $project_type"
         if [ "$project_type" == "ktor" ]; then
           echo 'Downloading ktor configuration'
@@ -34,4 +34,5 @@ runs:
       uses: alaegin/Detekt-Action@v1.22.0
       with:
         github_token: ${{ inputs.github-token }}
+
         detekt_config: detekt.yml
