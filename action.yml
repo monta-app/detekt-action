@@ -20,7 +20,7 @@ runs:
         project_type="${{ env.PROJECT_TYPE }}"
         if [ "$project_type" == "ktor" ]; then
           echo 'Downloading ktor configuration'
-          curl -L -o ktor-detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/feature/ktor_support/conf/ktor-detekt.yml
+          curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/feature/ktor_support/conf/ktor-detekt.yml
         else
           echo 'Downloading micronaut configuration'
           curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
