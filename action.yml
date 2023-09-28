@@ -9,10 +9,23 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Determine Project Type
+      id: project_type
+      run: |
+        project_type="${{ inputs.project-type }}"
+        echo "::set-output name=project_type::$project_type"
+      shell: bash
+      continue-on-error: true
     - name: Download Detekt Configuration
       run: |
-        echo 'Downloading configuration'
-        curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
+        project_type="${{ steps.project_type.outputs.project_type }}"
+        if [ "$project_type" == "ktor" ]; then
+          echo 'Downloading ktor configuration'
+          curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/ktor-detekt.yml
+        else
+          echo 'Downloading micronaut configuration'
+          curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
+        fi
         ls -a
       shell: bash
     - name: Run Detekt
