@@ -31,5 +31,4 @@ runs:
       uses: alaegin/Detekt-Action@v1.22.0
       with:
         github_token: ${{ inputs.github-token }}
-
         detekt_config: detekt.yml
