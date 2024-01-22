@@ -1,9 +1,11 @@
 FROM openjdk:21
 
+ARG DETEKT_VERSION=1.23.4
+
 WORKDIR /detekt
 
-RUN curl -LO https://github.com/detekt/detekt/releases/download/v1.23.4/detekt-cli-1.23.4-all.jar
-RUN curl -LO https://github.com/detekt/detekt/releases/download/v1.23.4/detekt-formatting-1.23.4.jar
+RUN curl -L -o detekt.jar https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-1.23.4-all.jar
+RUN curl -L -o detekt-formatting.jar https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-formatting-1.23.4.jar
 
 COPY conf/detekt.yml detekt.yml
 COPY .docker/run_monta_detekt.sh /bin/run_monta_detekt
