@@ -18,3 +18,16 @@ Add this step to your `pull_request.yml` inside of your github workflows with th
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+#### Local Usage
+
+1. Build Dockerfile
+  
+    ```bash
+    docker build -t monta-detekt:latest -f Dockerfile.monta-detekt .
+    ```
+2. Run `monta-detekt:latest` on your repo with:
+    ```bash
+    # cd into your repo
+    docker run --rm -v $PWD:/app monta-detekt:latest
+    ```
