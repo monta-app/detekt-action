@@ -21,7 +21,7 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
-      uses: alaegin/Detekt-Action@v1.22.0
+      uses: alaegin/Detekt-Action@v1.23.5
       with:
         github_token: ${{ inputs.github-token }}
         detekt_config: detekt.yml
