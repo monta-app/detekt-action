@@ -9,6 +9,10 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Download cURL
+      run: |
+        apt-get update
+        apt-get install curl
     - name: Download Detekt Configuration
       run: |
         echo 'Downloading configuration'
