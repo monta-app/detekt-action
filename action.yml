@@ -13,6 +13,7 @@ runs:
       run: |
         apt-get update
         apt-get install curl
+      shell: bash
     - name: Download Detekt Configuration
       run: |
         echo 'Downloading configuration'
