@@ -11,8 +11,8 @@ runs:
       uses: actions/checkout@v3
     - name: Download cURL
       run: |
-        apt-get update
-        apt-get install curl
+        sudo apt-get update
+        sudo apt-get install curl
       shell: bash
     - name: Download Detekt Configuration
       run: |
