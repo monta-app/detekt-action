@@ -9,7 +9,6 @@ runs:
   steps:
     - name: Download cURL & update Git
       run: |
-        sudo apt-add-repository ppa:git-core/ppa
         sudo apt-get update
         sudo apt-get install -y curl
         sudo apt-get install -y git
