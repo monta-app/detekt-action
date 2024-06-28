@@ -4,6 +4,9 @@ inputs:
   github-token:
     description: "Github token used for generating releases"
     required: true
+  project-config-overrides:
+    description: "Override configuration with project specific overrides - point to a config file in '.yml' format
+    required: false
 runs:
   using: "composite"
   steps:
@@ -22,7 +25,14 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
+      if: ${{ !inputs.project-config-overrides }}
       uses: alaegin/Detekt-Action@v1.23.6
       with:
         github_token: ${{ inputs.github-token }}
         detekt_config: detekt.yml
+    - name: Run Detekt
+      if: ${{ inputs.project-config-overrides }}
+      uses: alaegin/Detekt-Action@v1.23.6
+      with:
+        github_token: ${{ inputs.github-token }}
+        detekt_config: detekt.yml,inputs.project-config-overrides
