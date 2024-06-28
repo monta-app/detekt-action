@@ -5,8 +5,9 @@ inputs:
     description: "Github token used for generating releases"
     required: true
   project-config-overrides:
-    description: "Override configuration with project specific overrides - point to a config file in '.yml' format
+    description: "Override configuration with project specific overrides - point to a config file in '.yml' format"
     required: false
+    type: string
 runs:
   using: "composite"
   steps:
