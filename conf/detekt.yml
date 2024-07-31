@@ -752,3 +752,4 @@ style:
     excludeImports:
       - 'java.util.*'
       - 'io.ktor.**'
+      - 'kotlin.test.**'
