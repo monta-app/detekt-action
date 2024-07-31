@@ -423,6 +423,7 @@ naming:
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
     functionPattern: '([a-z][a-zA-Z0-9]*)|(`.*`)'
     excludeClassPattern: '$^'
+    ignoreAnnotated: ['Composable']
     ignoreOverridden: true
   FunctionParameterNaming:
     active: true
@@ -690,9 +691,7 @@ style:
   SpacingBetweenPackageAndImports:
     active: false
   ThrowsCount:
-    active: true
-    max: 2
-    excludeGuardClauses: false
+    active: false
   TrailingWhitespace:
     active: false
   UnnecessaryAbstractClass:
@@ -753,4 +752,3 @@ style:
     excludeImports:
       - 'java.util.*'
       - 'io.ktor.**'
-      - 'kotlin.test.**'

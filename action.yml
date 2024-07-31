@@ -7,8 +7,14 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Download cURL & update Git
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl
+        sudo apt-get install -y git
+      shell: bash
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Download Detekt Configuration
       run: |
         echo 'Downloading configuration'
@@ -16,7 +22,7 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
-      uses: alaegin/Detekt-Action@v1.22.0
+      uses: alaegin/Detekt-Action@v1.23.6
       with:
         github_token: ${{ inputs.github-token }}
         detekt_config: detekt.yml
