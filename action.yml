@@ -4,6 +4,10 @@ inputs:
   github-token:
     description: "Github token used for generating releases"
     required: true
+  image-registry:
+    description: "ECR registry to pull the image from"
+    required: false
+    default: "docker.io"
 runs:
   using: "composite"
   steps:
@@ -22,7 +26,8 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
-      uses: alaegin/Detekt-Action@v1.23.6
+      uses: monta-app/Detekt-Action-Fork@master
       with:
         github_token: ${{ inputs.github-token }}
         detekt_config: detekt.yml
+        image_registry: ${{ inputs.image-registry }}
