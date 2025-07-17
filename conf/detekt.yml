@@ -86,23 +86,6 @@ complexity:
     threshold: 10
     includeStaticDeclarations: false
     includePrivateDeclarations: false
-  # ComplexMethod is deprecated - Rule is renamed to CyclomaticComplexMethod
-  # ComplexMethod:
-  #   active: true
-  #   threshold: 15
-  #   ignoreSingleWhenExpression: false
-  #   ignoreSimpleWhenEntries: false
-  #   ignoreNestingFunctions: false
-  #   nestingFunctions:
-  #     - 'also'
-  #     - 'apply'
-  #     - 'forEach'
-  #     - 'isNotNull'
-  #     - 'ifNull'
-  #     - 'let'
-  #     - 'run'
-  #     - 'use'
-  #     - 'with'
   CyclomaticComplexMethod:
     active: true
     threshold: 15
@@ -305,8 +288,6 @@ formatting:
     active: true
     autoCorrect: true
     indentSize: 4
-    # continuationIndentSize is deprecated - ignored by KtLint and will have no effect
-    # continuationIndentSize: 4
   MaximumLineLength:
     active: false
     maxLineLength: 140
@@ -419,8 +400,6 @@ naming:
     parameterPattern: '[a-z][A-Za-z0-9]*'
     privateParameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
-    # ignoreOverridden is deprecated - This configuration is ignored and will be removed in the future
-    # ignoreOverridden: true
   EnumNaming:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
@@ -443,15 +422,11 @@ naming:
     functionPattern: '([a-z][a-zA-Z0-9]*)|(`.*`)'
     excludeClassPattern: '$^'
     ignoreAnnotated: ['Composable']
-    # ignoreOverridden is deprecated - This configuration is ignored and will be removed in the future
-    # ignoreOverridden: true
   FunctionParameterNaming:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
     parameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
-    # ignoreOverridden is deprecated - This configuration is ignored and will be removed in the future
-    # ignoreOverridden: true
   InvalidPackageDeclaration:
     active: false
     rootPackage: ''
@@ -496,8 +471,6 @@ naming:
     variablePattern: '[a-z][A-Za-z0-9]*'
     privateVariablePattern: '(_)?[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
-    # ignoreOverridden is deprecated - This configuration is ignored and will be removed in the future
-    # ignoreOverridden: true
 
 performance:
   active: true
@@ -526,9 +499,6 @@ potential-bugs:
     active: false
   DoubleMutabilityForCollection:
     active: false
-  # DuplicateCaseInWhenExpression is deprecated as compiler performs this check by default
-  # DuplicateCaseInWhenExpression:
-  #   active: true
   EqualsAlwaysReturnsTrueOrFalse:
     active: true
   EqualsWithHashCodeExist:
@@ -564,15 +534,8 @@ potential-bugs:
     ignoreOnClassesPattern: ''
   MapGetWithNotNullAssertionOperator:
     active: false
-  # MissingWhenCase is deprecated as compiler performs this check by default
-  # MissingWhenCase:
-  #   active: true
-  #   allowElseExpression: true
   NullableToStringCall:
     active: false
-  # RedundantElseInWhen is deprecated as compiler performs this check by default
-  # RedundantElseInWhen:
-  #   active: true
   UnconditionalJumpStatementInLoop:
     active: false
   UnnecessaryNotNullOperator:
@@ -640,13 +603,6 @@ style:
     methods:
       - 'kotlin.io.print'
       - 'kotlin.io.println'
-  # ForbiddenPublicDataClass is deprecated - Rule migrated to `libraries` ruleset plugin
-  # ForbiddenPublicDataClass:
-  #   active: true
-  #   excludes: [ '**' ]
-  #   ignorePackages:
-  #     - '*.internal'
-  #     - '*.internal.*'
   ForbiddenVoid:
     active: false
     ignoreOverridden: false
@@ -656,22 +612,11 @@ style:
     ignoreOverridableFunction: true
     ignoreActualFunction: true
     excludedFunctions: []
-  # LibraryCodeMustSpecifyReturnType is deprecated - Rule migrated to `libraries` ruleset plugin
-  # LibraryCodeMustSpecifyReturnType:
-  #   active: true
-  #   excludes: [ '**' ]
-  # LibraryEntitiesShouldNotBePublic is deprecated - Rule migrated to `libraries` ruleset plugin
-  # LibraryEntitiesShouldNotBePublic:
-  #   active: true
-  #   excludes: [ '**' ]
   LoopWithTooManyJumpStatements:
     active: true
     maxJumpCount: 1
   MagicNumber:
     active: false
-  # MandatoryBracesIfStatements is deprecated - Use BracesOnIfStatements with 'always' configuration instead
-  # MandatoryBracesIfStatements:
-  #   active: false
   BracesOnIfStatements:
     active: false
     singleLine: 'never'
@@ -702,9 +647,6 @@ style:
     active: true
   OptionalUnit:
     active: false
-  # OptionalWhenBraces is deprecated - Same functionality is implemented in BracesOnWhenStatements
-  # OptionalWhenBraces:
-  #   active: false
   BracesOnWhenStatements:
     active: false
     singleLine: 'never'
