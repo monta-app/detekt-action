@@ -14,7 +14,7 @@ runs:
         sudo apt-get install -y git
       shell: bash
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Download Detekt Configuration
       run: |
         echo 'Downloading configuration'
