@@ -17,8 +17,8 @@ runs:
         sudo apt-get install -y git
       shell: bash
     - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Detekt Configuration
+      uses: actions/checkout@v5
+    - name: Download Detekt Configuration
       run: |
         if [ -n "${{ inputs.detekt-config-file }}" ]; then
           echo 'Using provided custom detekt configuration file'
