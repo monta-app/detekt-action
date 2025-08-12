@@ -18,7 +18,7 @@ runs:
       shell: bash
     - name: Checkout
       uses: actions/checkout@v5
-    - name: Download Detekt Configuration
+    - name: Setup Detekt Configuration
       run: |
         if [ -n "${{ inputs.detekt-config-file }}" ]; then
           echo 'Using provided custom detekt configuration file'
