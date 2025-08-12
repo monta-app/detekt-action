@@ -19,6 +19,30 @@ Add this step to your `pull_request.yml` inside of your github workflows with th
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+#### Using a custom configuration file
+
+You can optionally provide your own detekt.yml configuration file instead of using the centralized one:
+
+```yaml
+  static-code-analysis:
+    name: Static Code Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Run detekt
+        uses: monta-app/detekt-action@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          detekt-config-file: ./path/to/your/detekt.yml
+```
+
+#### Input Parameters
+
+| Parameter | Description | Required | Default |
+|-----------|-------------|----------|---------|
+| `github-token` | GitHub token used for generating releases | Yes | - |
+| `detekt-config-file` | Path to custom detekt.yml config file | No | Uses centralized config |
+
 #### Local Usage
 
 1. Build Dockerfile

@@ -4,6 +4,9 @@ inputs:
   github-token:
     description: "Github token used for generating releases"
     required: true
+  detekt-config-file:
+    description: "Path to custom detekt.yml config file (optional)"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -15,10 +18,15 @@ runs:
       shell: bash
     - name: Checkout
       uses: actions/checkout@v5
-    - name: Download Detekt Configuration
+    - name: Setup Detekt Configuration
       run: |
-        echo 'Downloading configuration'
-        curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
+        if [ -n "${{ inputs.detekt-config-file }}" ]; then
+          echo 'Using provided custom detekt configuration file'
+          cp "${{ inputs.detekt-config-file }}" detekt.yml
+        else
+          echo 'Downloading centralized configuration'
+          curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
+        fi
         ls -a
       shell: bash
     - name: Run Detekt
