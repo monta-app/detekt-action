@@ -1,4 +1,4 @@
-name: "Watchdog Detekt Action"
+name: "Detekt Action"
 description: "Run Detekt from a centralized location"
 inputs:
   github-token:
@@ -30,7 +30,7 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
-      uses: alaegin/Detekt-Action@v1.23.7
+      uses: natiginfo/action-detekt-all@1.23.8
       with:
         github_token: ${{ inputs.github-token }}
-        detekt_config: detekt.yml
+        args: --config detekt.yml
