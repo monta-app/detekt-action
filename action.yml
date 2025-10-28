@@ -30,7 +30,7 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
-      uses: natiginfo/action-detekt-all@1.23.8
+      uses: alaegin/Detekt-Action@v1.23.7
       with:
         github_token: ${{ inputs.github-token }}
-        args: --config detekt.yml
+        detekt_config: detekt.yml
