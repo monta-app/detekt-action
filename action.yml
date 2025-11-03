@@ -30,7 +30,7 @@ runs:
         ls -a
       shell: bash
     - name: Run Detekt
-      uses: Nandi/Detekt-Action@v1.23.8
+      uses: Nandi/Detekt-Action@1.23.8
       with:
         github_token: ${{ inputs.github-token }}
         detekt_config: detekt.yml
