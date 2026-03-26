@@ -24,8 +24,8 @@ runs:
           echo 'Using provided custom detekt configuration file'
           cp "${{ inputs.detekt-config-file }}" detekt.yml
         else
-          echo 'Downloading centralized configuration'
-          curl -L -o detekt.yml https://raw.githubusercontent.com/monta-app/detekt-action/main/conf/detekt.yml
+          echo 'Using bundled centralized configuration'
+          cp "${{ github.action_path }}/conf/detekt.yml" detekt.yml
         fi
         ls -a
       shell: bash
