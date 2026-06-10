@@ -19,9 +19,14 @@ runs:
         java-version: "21"
     - name: Setup Detekt configuration
       run: |
-        if [ -n "${{ inputs.detekt-config-file }}" ]; then
-          echo "Using provided custom detekt configuration file"
-          cp "${{ inputs.detekt-config-file }}" detekt.yml
+        config_file="${{ inputs.detekt-config-file }}"
+        if [ -n "$config_file" ]; then
+          echo "Using provided custom detekt configuration file: $config_file"
+          # A repo whose config is already named detekt.yml needs no copy
+          # (cp would fail on identical source and destination).
+          if [ "$config_file" != "detekt.yml" ]; then
+            cp "$config_file" detekt.yml
+          fi
         else
           echo "Using bundled centralized configuration"
           cp "${{ github.action_path }}/conf/detekt.yml" detekt.yml
