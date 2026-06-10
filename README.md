@@ -40,7 +40,7 @@ You can optionally provide your own detekt.yml configuration file instead of usi
 
 | Parameter | Description | Required | Default |
 |-----------|-------------|----------|---------|
-| `github-token` | GitHub token used for generating releases | Yes | - |
+| `github-token` | GitHub token used by reviewdog to post annotations on the pull request | Yes | - |
 | `detekt-config-file` | Path to custom detekt.yml config file | No | Uses centralized config |
 
 #### Local Usage
