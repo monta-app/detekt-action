@@ -1,8 +1,8 @@
 name: "Detekt Action"
-description: "Run Detekt from a centralized location"
+description: "Run Detekt with reviewdog from a centralized location"
 inputs:
   github-token:
-    description: "Github token used for generating releases"
+    description: "GitHub token used by reviewdog to post annotations on the pull request"
     required: true
   detekt-config-file:
     description: "Path to custom detekt.yml config file (optional)"
@@ -10,27 +10,55 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Download cURL & update Git
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y curl
-        sudo apt-get install -y git
-      shell: bash
     - name: Checkout
       uses: actions/checkout@v6
-    - name: Setup Detekt Configuration
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        distribution: "corretto"
+        java-version: "21"
+    - name: Setup Detekt configuration
       run: |
-        if [ -n "${{ inputs.detekt-config-file }}" ]; then
-          echo 'Using provided custom detekt configuration file'
-          cp "${{ inputs.detekt-config-file }}" detekt.yml
+        config_file="${{ inputs.detekt-config-file }}"
+        if [ -n "$config_file" ]; then
+          echo "Using provided custom detekt configuration file: $config_file"
+          # A repo whose config is already named detekt.yml needs no copy
+          # (cp would fail on identical source and destination).
+          if [ "$config_file" != "detekt.yml" ]; then
+            cp "$config_file" detekt.yml
+          fi
         else
-          echo 'Using bundled centralized configuration'
+          echo "Using bundled centralized configuration"
           cp "${{ github.action_path }}/conf/detekt.yml" detekt.yml
         fi
-        ls -a
       shell: bash
-    - name: Run Detekt
-      uses: Nandi/Detekt-Action@1.23.8
-      with:
-        github_token: ${{ inputs.github-token }}
-        detekt_config: detekt.yml
+    - name: Run Detekt with reviewdog
+      run: |
+        set -o pipefail
+        tools_dir="${{ github.action_path }}/.tools"
+        mkdir -p "$tools_dir"
+        echo "::group::Download detekt ${DETEKT_VERSION} & reviewdog ${REVIEWDOG_VERSION}"
+        curl -fsSL -o "$tools_dir/detekt.jar" \
+          "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar"
+        curl -fsSL -o "$tools_dir/detekt-formatting.jar" \
+          "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-formatting-${DETEKT_VERSION}.jar"
+        curl -fsSL "https://raw.githubusercontent.com/reviewdog/reviewdog/v${REVIEWDOG_VERSION}/install.sh" \
+          | sh -s -- -b "$tools_dir" "v${REVIEWDOG_VERSION}"
+        echo "::endgroup::"
+        # reviewdog (filter-mode=added) shells out to git inside the workspace
+        git config --global --add safe.directory "$GITHUB_WORKSPACE" || true
+        # detekt exits non-zero when issues are found; the pull-request status is owned
+        # by reviewdog's github-pr-check run, so don't let detekt's exit abort the step.
+        java -jar "$tools_dir/detekt.jar" \
+          --config detekt.yml \
+          --report xml:detekt_report.xml \
+          --excludes "**/build/**,**/.idea/**" \
+          --plugins "$tools_dir/detekt-formatting.jar" || true
+        "$tools_dir/reviewdog" -f=checkstyle -name="detekt" \
+          -reporter="github-pr-check" -level="error" -filter-mode="added" \
+          < detekt_report.xml
+      shell: bash
+      env:
+        DETEKT_VERSION: "1.23.8"
+        REVIEWDOG_VERSION: "0.17.4"
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github-token }}
