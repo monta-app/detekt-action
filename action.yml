@@ -60,5 +60,5 @@ runs:
       shell: bash
       env:
         DETEKT_VERSION: "1.23.8"
-        REVIEWDOG_VERSION: "0.17.4"
+        REVIEWDOG_VERSION: "0.21.1"
         REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github-token }}
