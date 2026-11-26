@@ -59,6 +59,8 @@ runs:
           < detekt_report.xml
       shell: bash
       env:
+        # renovate: datasource=github-releases depName=detekt/detekt
         DETEKT_VERSION: "1.23.8"
+        # renovate: datasource=github-releases depName=reviewdog/reviewdog
         REVIEWDOG_VERSION: "0.21.3"
         REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github-token }}
